@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GreenHaven Ornamentals | nursery</title>
+  <!-- Font Awesome icons & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f9fbf8;
+      color: #1e2f23;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* color palette */
+    :root {
+      --deep-green: #1f4b3e;
+      --leaf: #3f7856;
+      --soft-green: #d9e8db;
+      --sand: #f2ede4;
+      --terracotta: #b86f5e;
+      --warm-white: #fefcf5;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* header / nav */
+    header {
+      background-color: var(--warm-white);
+      box-shadow: 0 6px 18px rgba(0, 40, 20, 0.04);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 12px 0;
+      border-bottom: 2px solid var(--soft-green);
+    }
+
+    .header-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.8rem;
+      font-weight: 600;
+      font-family: 'Playfair Display', serif;
+      color: var(--deep-green);
+    }
+    .logo i {
+      font-size: 2.2rem;
+      color: var(--leaf);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      font-weight: 500;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #1e3a2e;
+      transition: color 0.2s;
+      font-size: 1.1rem;
+    }
+    .nav-links a:hover {
+      color: var(--terracotta);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: var(--deep-green);
+      cursor: pointer;
+    }
+
+    /* mobile nav */
+    @media (max-width: 700px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 16px;
+        background: var(--warm-white);
+        padding: 24px 20px;
+        border-radius: 24px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        position: absolute;
+        top: 80px;
+        right: 24px;
+        left: 24px;
+        border: 1px solid var(--soft-green);
+      }
+      .nav-links.show {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    /* buttons */
+    .btn {
+      display: inline-block;
+      background-color: var(--deep-green);
+      color: white;
+      padding: 14px 36px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      border: 2px solid transparent;
+      transition: 0.25s;
+      box-shadow: 0 6px 14px rgba(31, 75, 62, 0.2);
+    }
+    .btn:hover {
+      background-color: transparent;
+      border-color: var(--deep-green);
+      color: var(--deep-green);
+      box-shadow: none;
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      border: 2px solid var(--leaf);
+      color: var(--leaf);
+      box-shadow: none;
+    }
+    .btn-secondary:hover {
+      background-color: var(--leaf);
+      color: white;
+      border-color: var(--leaf);
+    }
+
+    /* sections */
+    section {
+      padding: 80px 0;
+    }
+
+    .hero {
+      background: linear-gradient(130deg, #e7f3e4 0%, #d1e4d3 100%);
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+    }
+    .hero-grid {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .hero-content {
+      flex: 1 1 350px;
+    }
+    .hero-image {
+      flex: 1 1 350px;
+      background: url('https://images.unsplash.com/photo-1520412099551-62d6af4733ff?w=700&auto=format') center/cover no-repeat;
+      min-height: 280px;
+      border-radius: 40px 40px 40px 120px;
+      box-shadow: 20px 20px 0 var(--leaf);
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      color: var(--deep-green);
+      margin-bottom: 16px;
+    }
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 32px;
+      color: #2a4538;
+    }
+
+    /* featured plants grid */
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 48px;
+      color: var(--deep-green);
+    }
+    .plants-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    .plant-card {
+      background: var(--warm-white);
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(56, 96, 70, 0.08);
+      transition: transform 0.25s, box-shadow 0.3s;
+      border: 1px solid var(--soft-green);
+    }
+    .plant-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 30px rgba(42, 92, 72, 0.15);
+    }
+    .plant-img {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+    }
+    .plant-info {
+      padding: 20px 18px 26px;
+    }
+    .plant-info h3 {
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+    }
+    .plant-price {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--terracotta);
+      margin: 10px 0 12px;
+    }
+
+    /* about / features */
+    .about-wrap {
+      background-color: var(--soft-green);
+      border-radius: 60px 60px 60px 0;
+      padding: 60px 40px;
+    }
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-top: 30px;
+      justify-content: center;
+    }
+    .feature {
+      flex: 1 1 180px;
+      text-align: center;
+      background: rgba(255,255,255,0.6);
+      padding: 30px 20px;
+      border-radius: 32px;
+      backdrop-filter: blur(2px);
+    }
+    .feature i {
+      font-size: 3rem;
+      color: var(--deep-green);
+      margin-bottom: 16px;
+    }
+    .feature h4 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    /* contact */
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      background: var(--warm-white);
+      border-radius: 50px;
+      padding: 48px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+    }
+    .contact-form {
+      flex: 1 1 300px;
+    }
+    .contact-info {
+      flex: 1 1 250px;
+      background: var(--soft-green);
+      padding: 32px;
+      border-radius: 40px;
+    }
+    .form-group {
+      margin-bottom: 22px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 16px 22px;
+      border: 1px solid #cbd5c0;
+      border-radius: 60px;
+      font-size: 1rem;
+      background: white;
+      transition: 0.2s;
+    }
+    textarea {
+      border-radius: 30px;
+      resize: vertical;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--leaf);
+      box-shadow: 0 0 0 4px #dff0e3;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+    .info-item i {
+      font-size: 2rem;
+      background: var(--deep-green);
+      color: white;
+      padding: 16px;
+      border-radius: 50%;
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .map-placeholder {
+      background: #c1dbc4;
+      height: 160px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1f4b3e;
+      font-weight: 600;
+      border: 2px dashed var(--leaf);
+      margin-top: 20px;
+    }
+
+    footer {
+      background: var(--deep-green);
+      color: #eee;
+      text-align: center;
+      padding: 32px 20px;
+      border-top: 8px solid var(--terracotta);
+    }
+    .social a {
+      color: white;
+      margin: 0 12px;
+      font-size: 1.6rem;
+      transition: color 0.2s;
+    }
+    .social a:hover {
+      color: var(--terracotta);
+    }
+
+    hr {
+      border: 1px solid #3b6a53;
+      margin: 24px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-flex">
+      <div class="logo">
+        <i class="fas fa-seedling"></i>
+        <span>GreenHaven</span>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#plants">Plants</a>
+        <a href="#about">Our Story</a>
+        <a href="#contact">Visit</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO / HOME -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <h1>Bring nature home, leaf by leaf.</h1>
+          <p>Discover rare &amp; everyday ornamentals grown with heart in our family nursery.</p>
+          <a href="#plants" class="btn">Explore collection <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></a>
+          <a href="#contact" class="btn btn-secondary" style="margin-left: 16px;">Visit us</a>
+        </div>
+        <div class="hero-image" aria-label="lush foliage close-up"></div>
+      </div>
+    </section>
+
+    <!-- FEATURED PLANTS -->
+    <section id="plants">
+      <div class="container">
+        <h2 class="section-title">🌿 evergreens & blooms</h2>
+        <div class="plants-grid">
+          <!-- card 1 -->
+          <div class="plant-card">
+            <div class="plant-img" style="background-image: url('https://images.unsplash.com/photo-1593691509543-55d4c7c16bc2?w=500&auto=format');"></div>
+            <div class="plant-info">
+              <h3>Alocasia 'Polly'</h3>
+              <p>Dramatic leaves with silver veins. A statement for bright corners.</p>
+              <div class="plant-price">$24.50</div>
+              <a href="#" class="btn-secondary" style="padding: 8px 24px; font-size: 0.9rem;">Inquiry</a>
+            </div>
+          </div>
+          <!-- card 2 -->
+          <div class="plant-card">
+            <div class="plant-img" style="background-image: url('https://images.unsplash.com/photo-1614594207290-6c903f5a98a4?w=500&auto=format');"></div>
+            <div class="plant-info">
+              <h3>Stromanthe Triostar</h3>
+              <p>Pink &amp; green variegation – a living piece of art.</p>
+              <div class="plant-price">$32.00</div>
+              <a href="#" class="btn-secondary" style="padding: 8px 24px; font-size: 0.9rem;">Inquiry</a>
+            </div>
+          </div>
+          <!-- card 3 -->
+          <div class="plant-card">
+            <div class="plant-img" style="background-image: url('https://images.unsplash.com/photo-1572688487222-00b6a4be9e6b?w=500&auto=format');"></div>
+            <div class="plant-info">
+              <h3>Ficus Elastica 'Burgundy'</h3>
+              <p>Glossy deep maroon leaves. air purifier &amp; easy care.</p>
+              <div class="plant-price">$18.75</div>
+              <a href="#" class="btn-secondary" style="padding: 8px 24px; font-size: 0.9rem;">Inquiry</a>
+            </div>
+          </div>
+          <!-- card 4 -->
+          <div class="plant-card">
+            <div class="plant-img" style="background-image: url('https://images.unsplash.com/photo-1598986646512-9330b9bb9c1f?w=500&auto=format');"></div>
+            <div class="plant-info">
+              <h3>Monstera Deliciosa</h3>
+              <p>Swiss cheese plant – iconic split leaves, fast grower.</p>
+              <div class="plant-price">$39.90</div>
+              <a href="#" class="btn-secondary" style="padding: 8px 24px; font-size: 0.9rem;">Inquiry</a>
+            </div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+          <a href="#" class="btn-secondary" style="padding: 14px 48px;">View all plants <i class="fas fa-leaf"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT + FEATURES -->
+    <section id="about">
+      <div class="container about-wrap">
+        <h2 class="section-title" style="margin-top: -20px;">Rooted in passion</h2>
+        <div style="max-width: 800px; margin: 0 auto 40px; text-align: center; font-size: 1.2rem;">
+          <p>For three generations, GreenHaven has been a sanctuary for plant lovers. Every fern, succulent, and palm is nurtured in our pesticide‑free greenhouse.</p>
+        </div>
+        <div class="features">
+          <div class="feature">
+            <i class="fas fa-hand-holding-heart"></i>
+            <h4>hand‑raised</h4>
+            <p>from cuttings to specimen</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-truck"></i>
+            <h4>local delivery</h4>
+            <p>free for orders $75+</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-seedling"></i>
+            <h4>rare finds</h4>
+            <p>updated weekly</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-chalkboard-user"></i>
+            <h4>plant clinic</h4>
+            <p>advice from our growers</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT + VISIT -->
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">Come see the greenery</h2>
+        <div class="contact-grid">
+          <div class="contact-form">
+            <h3 style="font-size: 2rem; margin-bottom: 20px;">🌱 drop a line</h3>
+            <form id="quickForm">
+              <div class="form-group">
+                <input type="text" placeholder="Your name" required>
+              </div>
+              <div class="form-group">
+                <input type="email" placeholder="Email address" required>
+              </div>
+              <div class="form-group">
+                <textarea rows="4" placeholder="Which plant caught your eye? or just say hi."></textarea>
+              </div>
+              <button type="submit" class="btn" style="border: none; cursor: pointer;">Send message</button>
+            </form>
+          </div>
+          <div class="contact-info">
+            <div class="info-item">
+              <i class="fas fa-map-pin"></i>
+              <div>
+                <strong>GreenHaven Nursery</strong><br>
+                421 Orchard Lane, Suite B<br>
+                Portland, OR 97214
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-clock"></i>
+              <div>
+                <strong>Open 7 days</strong><br>
+                Mon–Sat 9am – 6pm<br>
+                Sun 10am – 4pm
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-phone-alt"></i>
+              <div>
+                <strong>(503) 555‑0173</strong><br>
+                hello@greenhavenplants.com
+              </div>
+            </div>
+            <div class="map-placeholder">
+              <i class="fas fa-map-marked-alt" style="font-size: 2rem; margin-right: 12px;"></i>  🌳  interactive map lives here
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="social">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-pinterest"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+      </div>
+      <hr>
+      <p style="margin: 20px 0 0;">🌿  &copy; 2025 GreenHaven Ornamentals – grown with sunshine & patience  🌿</p>
+    </div>
+  </footer>
+
+  <!-- simple mobile menu + form alert (non functional demo) -->
+  <script>
+    (function() {
+      const toggleBtn = document.getElementById('menuToggle');
+      const nav = document.getElementById('navLinks');
+      if (toggleBtn && nav) {
+        toggleBtn.addEventListener('click', () => {
+          nav.classList.toggle('show');
+        });
+      }
+
+      // gentle contact form alert (prevents actual submit)
+      const form = document.getElementById('quickForm');
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          alert('✨ Thanks for reaching out! (demo form – we’ll get back to you soon) ✨');
+          form.reset();
+        });
+      }
+
+      // close mobile menu after clicking a link (smooth)
+      const links = document.querySelectorAll('.nav-links a');
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          if (nav.classList.contains('show')) {
+            nav.classList.remove('show');
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
